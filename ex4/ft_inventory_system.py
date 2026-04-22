@@ -19,7 +19,7 @@ def check_param(param, stock)->list:
 	return item
 
 def stock_items()-> dict:
-	stock = {}
+	stock: dict[str, int] = {}
 	items = sys.argv[1:]
 	for item in items:
 		try:
@@ -36,13 +36,22 @@ def inventory_operation()-> None:
 	print("=== Inventory System Analysis ===\n")
 	stock = stock_items()
 	print(f"Got inventory: {stock}")
-	print(f"Item list: {stock.keys()}")
+	print(f"Item list: {list(stock.keys())}")
 	total = sum(stock.values())
 	print(f"Total quantity of the {len(stock)} items: {total}")
+	max_q = 0
+	min_q = total
 	for item in stock:
-		print(f"Item {item} represents: {round(((stock[item] / total )* 100), 1)}%")
-	print(f"Item most abundant:  with quantity ")
-	print(f"Item least abundant:  with quantity ")
+		print(f"Item {item} represents {round(((stock[item] / total )* 100), 1)}%")
+		if stock[item] > max_q:
+			max_q = stock[item]
+			max_item = item
+		if stock[item] < min_q:
+			min_q = stock[item]
+			min_item = item
+	if len(stock) != 0:		
+		print(f"Item most abundant: {max_item} with quantity {max_q}")
+		print(f"Item least abundant: {min_item} with quantity {min_q}")
 	stock.update({"magic_item":1})
 	print(f"Updated inventory: {stock}")
 
