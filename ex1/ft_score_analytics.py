@@ -7,7 +7,7 @@ def score_analytics() -> None:
     scores = []
     for arg in args:
         try:
-            scores.append(int(arg))
+            scores += [int(arg)]
         except ValueError:
             print(f"Invalid parameter: '{arg}'")
 
